@@ -1,0 +1,52 @@
+services:
+  findmyshot-web:
+    build:
+      context: ./web
+      dockerfile: Dockerfile.prod
+    env_file:
+      - ./deploy/env/web.env
+    restart: unless-stopped
+    networks:
+      - traefik-public
+      - findmyshot-internal
+    labels:
+      - traefik.enable=true
+      - traefik.docker.network=${TRAEFIK_PUBLIC_NETWORK:-traefik-public}
+      - traefik.http.routers.findmyshot-web.rule=Host(`photo.muvipho.com`)
+      - traefik.http.routers.findmyshot-web.entrypoints=websecure
+      - traefik.http.routers.findmyshot-web.tls=true
+      - traefik.http.routers.findmyshot-web.tls.certresolver=mytlschallenge
+      - traefik.http.services.findmyshot-web.loadbalancer.server.port=3000
+
+  findmyshot-api:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    env_file:
+      - ./deploy/env/backend.env
+    restart: unless-stopped
+    volumes:
+      - findmyshot-data:/opt/findmyshot-data
+    networks:
+      - traefik-public
+      - findmyshot-internal
+    labels:
+      - traefik.enable=true
+      - traefik.docker.network=${TRAEFIK_PUBLIC_NETWORK:-traefik-public}
+      - traefik.http.routers.findmyshot-api.rule=Host(`photo.muvipho.com`) && PathPrefix(`/api`)
+      - traefik.http.routers.findmyshot-api.entrypoints=websecure
+      - traefik.http.routers.findmyshot-api.tls=true
+      - traefik.http.routers.findmyshot-api.tls.certresolver=mytlschallenge
+      - traefik.http.routers.findmyshot-api.priority=100
+      - traefik.http.services.findmyshot-api.loadbalancer.server.port=8001
+
+networks:
+  traefik-public:
+    external: true
+    name: ${TRAEFIK_PUBLIC_NETWORK:-traefik-public}
+  findmyshot-internal:
+    driver: bridge
+
+volumes:
+  findmyshot-data:
+    driver: local

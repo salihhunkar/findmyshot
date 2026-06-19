@@ -1,0 +1,16 @@
+[Unit]
+Description=FindMyShot Next.js Service
+After=network.target
+
+[Service]
+Type=simple
+User=www-data
+Group=www-data
+WorkingDirectory=/opt/findmyshot/web
+EnvironmentFile=/opt/findmyshot/deploy/env/web.env
+ExecStart=/usr/bin/npm run start
+Restart=always
+RestartSec=5
+
+[Install]
+WantedBy=multi-user.target

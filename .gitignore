@@ -1,0 +1,20 @@
+.env
+__pycache__/
+*.pyc
+backend/.env
+backend/venv/
+backend/.venv/
+backend/.venv_local/
+web/.next/
+.DS_Store
+
+# local / heavy files
+backend/.venv/
+web/node_modules/
+web/.next/
+web/.next.bak-*/
+web/.next.broken-*/
+web/.env.local
+*.pyc
+__pycache__/
+.DS_Store

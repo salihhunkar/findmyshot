@@ -1,0 +1,15 @@
+{
+  "permissions": {
+    "allow": [
+      "Read(//Users/zekihunkar/Desktop/muvipho-fal-agent/**)",
+      "Bash(npm install:*)",
+      "Bash(open -a \"Visual Studio Code\" /Users/zekihunkar/Desktop/muvipho-fal-agent)",
+      "Bash(lsof -ti:3000,8000,8001)",
+      "Bash(./venv/bin/python -m compileall app/routes/photos.py)",
+      "Bash(npm run:*)",
+      "Bash(curl -s http://127.0.0.1:3000 -o /dev/null -w \"%{http_code}\")",
+      "Bash(curl -s http://127.0.0.1:8001/docs -o /dev/null -w \"%{http_code}\")",
+      "Bash(curl -s http://localhost:3000 -o /dev/null -w \"%{http_code}\")"
+    ]
+  }
+}
