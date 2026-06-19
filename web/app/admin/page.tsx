@@ -4,7 +4,7 @@ import AdminDashboard from "../../components/admin-dashboard";
 export default function AdminPage() {
   return (
     <Suspense fallback={<div>Loading admin...</div>}>
-      <AdminDashboard />
+      <AdminDashboard />git status
     </Suspense>
   );
 }

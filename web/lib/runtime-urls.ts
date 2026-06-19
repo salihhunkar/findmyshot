@@ -30,7 +30,7 @@ export function getApiBaseUrl() {
     if (isLocalhost(hostname)) {
       return getLanFallbackUrl(8001);
     }
-    return ensureUrlProtocol(`${protocol}//${hostname}:8001`);
+    return ensureUrlProtocol(`${protocol}//${hostname}`);
   }
 
   return LOCAL_API_FALLBACK;
